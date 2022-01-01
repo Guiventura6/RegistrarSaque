@@ -1,6 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Text;
+using System.Collections.Generic;
+using RealizarSaque.Entities.Exceptions;
 
 namespace RealizarSaque.Entities
 {
@@ -30,6 +31,14 @@ namespace RealizarSaque.Entities
 
         public void WithDraw(double amount)
         {
+            if (amount > WithDrawLimit)
+            {
+                throw new DomainException("The amount exceeds withdraw limit");
+            }            
+            if (amount > Balance)
+            {
+                throw new DomainException("Not enough balance");
+            }
             Balance -= amount;
         }
     }
